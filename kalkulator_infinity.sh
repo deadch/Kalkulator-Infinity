@@ -1,15 +1,37 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-VERSION="v1.2-INFINITY"
+# ==========================================================
+# INFINITY ∞ — Sistema de Análise Computacional
+# Versão: v1.3-stable
+# Autor: deadch
+# ==========================================================
 
-R="\e[31m"; W="\e[97m"; G="\e[32m"; C="\e[36m"
-Y="\e[33m"; M="\e[35m"; B="\e[34m"; Z="\e[0m"
+VERSION="v1.3-stable"
+SCALE=40
 
-pause(){
-echo ""
-read -p "ENTER para continuar..."
+# ===== CORES =====
+R="\e[31m"; G="\e[32m"; Y="\e[33m"
+B="\e[34m"; M="\e[35m"; C="\e[36m"
+W="\e[97m"; Z="\e[0m"
+
+# ===== UTIL =====
+pause(){ echo; read -p "ENTER para continuar..."; }
+
+require(){
+  command -v "$1" >/dev/null 2>&1 || {
+    echo -e "${R}Dependência ausente:${Z} $1"
+    exit 1
+  }
 }
 
+init(){
+  clear
+  require bc
+  require curl
+  require ip
+}
+
+# ===== BANNER =====
 banner(){
 clear
 echo -e "${W}██╗███╗   ██╗███████╗██╗███╗   ██╗██╗████████╗██╗   ██╗"
@@ -18,125 +40,167 @@ echo -e "${W}██║██╔██╗ ██║█████╗  ██║�
 echo -e "${R}██║██║╚██╗██║██╔══╝  ██║██║╚██╗██║██║   ██║     ╚██╔╝  "
 echo -e "${R}██║██║ ╚████║██║     ██║██║ ╚████║██║   ██║      ██║   "
 echo -e "${R}╚═╝╚═╝  ╚═══╝╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝   ╚═╝      ╚═╝   ${Z}"
-echo -e "${Y}${VERSION}${Z}"
-echo -e "${G}by: deadch${Z}"
+echo -e "${Y}${VERSION}${Z}  ${G}by: deadch${Z}"
 echo -e "${C}Infinity ∞ — Sistema de Análise Computacional${Z}"
 echo "------------------------------------------------------------"
 }
 
+# ================= CALCULADORA =================
 calc_menu(){
 clear
 echo -e "${C}INFINITY :: CALCULADORA AVANÇADA${Z}"
 echo "
 (1) Básica
-(2) Científica
-(3) Potências / Log / Raízes
-(4) Trigonometria
-(5) Constantes Universais
+(2) Científica (alta precisão)
+(3) Potências & Raízes
+(4) Logaritmos & Trigonometria
+(5) Fatorial
+(6) Estatística Completa
+(7) Conversões Numéricas
+(8) Progressões
+(9) Constantes Universais
 (0) Voltar
 "
 read -p ">> " c
+
 case $c in
-1) read -p "Expressão >> " e; echo "Resultado: $(echo "$e" | sed 's/x/*/g' | bc)"; pause;;
-2) read -p "Expressão >> " e; echo "Resultado: $(echo "$e" | bc -l)"; pause;;
-3) read -p "Expressão >> " e; echo "Resultado: $(echo "$e" | bc -l)"; pause;;
-4) read -p "Expressão >> " e; echo "Resultado: $(echo "$e" | bc -l)"; pause;;
-5)
-echo "π = $(echo "4*a(1)" | bc -l)"
-echo "e = $(echo "e(1)" | bc -l)"
-pause;;
+1) read -p "Expressão >> " e; echo "Resultado: $(echo "$e" | sed 's/x/*/g' | bc)";;
+2) read -p "Expressão >> " e; echo "Resultado: $(echo "scale=$SCALE;$e" | bc -l)";;
+3) read -p "Ex: 2^10 | sqrt(2) >> " e; echo "Resultado: $(echo "$e" | bc -l)";;
+4) read -p "Ex: l(10) s(1) c(1) >> " e; echo "Resultado: $(echo "$e" | bc -l)";;
+5) read -p "n! >> " n; echo "Resultado: $(echo "define f(x){if(x<=1)return 1;return x*f(x-1)};f($n)" | bc)";;
+6)
+  read -p "Valores >> " v
+  echo "Média: $(echo "$v" | awk '{s=0;for(i=1;i<=NF;i++)s+=$i;print s/NF}')"
+  echo "Mínimo: $(echo "$v" | tr ' ' '\n' | sort -n | head -1)"
+  echo "Máximo: $(echo "$v" | tr ' ' '\n' | sort -n | tail -1)"
+;;
+7)
+  read -p "Número decimal >> " n
+  echo "Binário: $(echo "obase=2;$n" | bc)"
+  echo "Hex: $(echo "obase=16;$n" | bc)"
+;;
+8)
+  read -p "n termos >> " n
+  echo "Soma 1..n = $((n*(n+1)/2))"
+;;
+9)
+  echo "π = $(echo "scale=25;4*a(1)" | bc -l)"
+  echo "e = $(echo "scale=25;e(1)" | bc -l)"
+  echo "φ = $(echo "scale=25;(1+sqrt(5))/2" | bc -l)"
+  echo "c = 299792458 m/s"
+;;
 0) return;;
 esac
+pause
 calc_menu
 }
 
+# ================= INFINITY MODE ULTRA =================
 infinity_mode(){
 clear
-echo -e "${R}INFINITY MODE ∞ — EXTREME PANEL${Z}"
+echo -e "${R}INFINITY MODE ∞ — OBSERVAÇÃO TOTAL${Z}"
 echo "
-(1) Identidade do Sistema
+(1) Sistema
 (2) Kernel & Build
-(3) Usuário & Sessão
-(4) CPU Detalhada
-(5) Memória Profunda
-(6) Processos Ativos
+(3) Uptime & Load
+(4) Limites
+(5) CPU
+(6) Memória
 (7) Armazenamento
-(8) Interfaces de Rede
-(9) IP Público
-(10) Rotas & DNS
-(11) Conexões Ativas
-(12) Portas Abertas
-(13) Variáveis de Ambiente
-(14) Android Build
-(15) Sensores
-(16) Entropia do Sistema
-(17) Dispositivos
-(18) Logs Recentes
-(19) Uptime
-(20) Tabela ARP
-(21) Socket RAW
-(22) Limites do Kernel
-(23) Entropia Máxima
-(24) Mapa de Memória
+(8) Dispositivos
+(9) Processos
+(10) Threads
+(11) Top CPU/Memória
+(12) Interfaces de Rede
+(13) IP Público
+(14) Conexões
+(15) Portas
+(16) Rotas & DNS
+(17) ARP
+(18) Ambiente
+(19) Entropia
+(20) Mapa de Memória
+(21) IO do Sistema
+(22) Logs
+(23) Snapshot Geral
 (0) Voltar
 "
 read -p ">> " h
+
 case $h in
 1) uname -a;;
-2) cat /proc/version;;
-3) whoami; id;;
-4) cat /proc/cpuinfo;;
-5) cat /proc/meminfo;;
-6) ps -ef;;
+2) cat /proc/version; getprop ro.build.version.release;;
+3) uptime; cat /proc/loadavg;;
+4) ulimit -a;;
+5) cat /proc/cpuinfo;;
+6) cat /proc/meminfo;;
 7) df -h;;
-8) ip a;;
-9) curl -s ifconfig.me;;
-10) getprop net.dns1; getprop net.dns2; ip route;;
-11) ss -tunap;;
-12) ss -tuln;;
-13) env;;
-14) getprop ro.build.version.release;;
-15) dumpsys sensorservice | head;;
-16) cat /proc/sys/kernel/random/entropy_avail;;
-17) ls /dev | head;;
-18) logcat -d | head -n 80;;
-19) uptime;;
-20) ip neigh;;
-21) ss -raw;;
-22) ulimit -a;;
-23) cat /proc/sys/kernel/random/poolsize;;
-24) cat /proc/self/maps | head;;
+8) ls /dev | head -40;;
+9) ps -ef;;
+10) ps -T;;
+11)
+  ps -eo pid,comm,%cpu --sort=-%cpu | head
+  echo
+  ps -eo pid,comm,%mem --sort=-%mem | head
+;;
+12) ip a;;
+13) curl -s ifconfig.me;;
+14) ss -tunap;;
+15) ss -tuln;;
+16) ip route; getprop net.dns1; getprop net.dns2;;
+17) ip neigh;;
+18) env;;
+19) cat /proc/sys/kernel/random/entropy_avail;;
+20) cat /proc/self/maps | head -40;;
+21) cat /proc/diskstats;;
+22) logcat -d | head -100;;
+23)
+  echo "Usuário: $(whoami)"
+  echo "Sistema: $(uname -o)"
+  echo "Kernel: $(uname -r)"
+  echo "Uptime: $(uptime -p)"
+  echo "Carga: $(cat /proc/loadavg)"
+  echo "IP Público: $(curl -s ifconfig.me)"
+;;
 0) return;;
 esac
 pause
 infinity_mode
 }
 
+# ================= MANUAL =================
 manual(){
 clear
-echo -e "${M}INFINITY :: MANUAL${Z}"
+echo -e "${M}INFINITY :: MANUAL TÉCNICO${Z}"
 echo "
-Este sistema observa.
-Cada módulo revela um estado.
-Nada aqui explica consequências.
+Infinity é um sistema de observação computacional.
 
-A calculadora interpreta.
-O painel expõe.
-O operador decide.
+Não altera estados.
+Não executa ações.
+Não interfere em processos.
 
-Nada é oculto.
-Nada é filtrado.
-Apenas exibido.
+Todos os dados refletem o estado real
+do sistema no momento da consulta.
+
+A matemática resolve.
+O painel revela.
+A interpretação é externa.
+
+Infinity observa.
+Nada além disso.
 "
 pause
 }
 
+# ================= MAIN =================
+init
 while true; do
 banner
 echo "
 (1) Calculadora Avançada
 (2) Infinity Mode ∞
-(3) Manual
+(3) Manual Técnico
 (0) Sair
 "
 read -p ">> " op
