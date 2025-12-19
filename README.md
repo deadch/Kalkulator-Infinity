@@ -32,4 +32,3 @@ git clone https://github.com/deadch/Kalkulator-Infinity
 cd Kalkulator-Infinity
 chmod +x kalkulator_infinity.sh
 ./kalkulator_infinity.sh
-v1.1-stable
