@@ -1,30 +1,12 @@
-# Infinity
+# INFINITY ∞ — Kalkulator Infinity
 
-Sistema de análise computacional em ambiente terminal.  
-Interface minimalista, direta e expansível.
+INFINITY ∞ é um sistema avançado em **Bash** para **matemática de alta precisão** e **observação completa do sistema**, desenvolvido para rodar diretamente no **Termux / Linux** via terminal.
 
----
-
-## • Sobre
-
-Infinity é um sistema desenvolvido em **Shell Script** para execução no **Termux**.  
-O projeto oferece um menu interativo com módulos focados em matemática avançada e diagnóstico do sistema.
-
-by: dead ch
+O projeto une **cálculo matemático avançado** com **diagnóstico e monitoramento do sistema**, tudo em uma interface simples, colorida e baseada em menus.
 
 ---
 
-## • Requisitos
-
-- Termux
-- Bash
-- Git
-
----
-
-## • Instalação
-
-Execute os comandos abaixo no Termux:
+## 🔧 Instalação (Termux)
 
 ```bash
 pkg update && pkg upgrade -y
