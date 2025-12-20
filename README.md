@@ -5,15 +5,16 @@ Interface minimalista, direta e expansível.
 
 ---
 
-## 🔹 Sobre
+## • Sobre
 
 Infinity é um sistema desenvolvido em **Shell Script** para execução no **Termux**.  
-O projeto oferece um menu interativo com módulos distintos, focados em cálculo, exploração lógica e leitura interna do sistema.
+O projeto oferece um menu interativo com módulos focados em matemática avançada e diagnóstico do sistema.
 
-by:dead ch
+by: dead ch
+
 ---
 
-## 🔹 Requisitos
+## • Requisitos
 
 - Termux
 - Bash
@@ -21,7 +22,7 @@ by:dead ch
 
 ---
 
-## 🔹 Instalação
+## • Instalação
 
 Execute os comandos abaixo no Termux:
 
