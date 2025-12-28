@@ -1,279 +1,244 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# ==================================================
-# INFINITY ∞ — ABYSS CONTROL SYSTEM
-# Author : deadch
-# Version: v11.0-abyss
-# ==================================================
+# ============================================================
+# INFINITY ∞ — TRANSCENDENCE SYSTEM+
+# Scientific / Educational / System CLI
+# Version : v17.1-stable
+# Author  : deadch
+# ============================================================
 
-VERSION="v11.0-abyss"
+VERSION="v17.1-stable"
 
-# ===== CONFIG =====
-PRECISION=100
-DX=0.000000001
-STEPS=5000
-LOG="$HOME/infinity.log"
+# ===================== CONFIG ===============================
+PRECISION=120
+DX="1e-9"
+STEPS=8000
+LOGFILE="$HOME/.infinity.log"
 
-# ===== CORES =====
+# ===================== COLORS ===============================
 W="\033[97m"; R="\033[31m"; G="\033[32m"
 Y="\033[33m"; B="\033[34m"; C="\033[36m"
 M="\033[35m"; Z="\033[0m"
 
-LINE="${C}──────────────────────────────────────────────${Z}"
+LINE="${C}────────────────────────────────────────────────────────────${Z}"
+
+# ===================== CORE =================================
+log(){ echo "[$(date +%F_%T)] $1" >> "$LOGFILE"; }
 
 pause(){ echo; read -p ">> ENTER"; }
 
-safe_calc(){
-  echo "scale=$PRECISION;$1" | bc -l 2>/dev/null || echo "Erro"
+calc(){
+  echo "scale=$PRECISION;$1" | bc -l 2>/dev/null || echo "Erro matemático"
 }
 
 header(){
   clear
-  echo -e "${W}INFINITY ∞${Z} ${M}ABYSS${Z}"
-  echo -e "${Y}Version:${Z} $VERSION   ${Y}Precision:${Z} $PRECISION"
+  echo -e "${W}INFINITY ∞${Z} ${M}TRANSCENDENCE+${Z}"
+  echo -e "${Y}Versão:${Z} $VERSION | ${Y}Precisão:${Z} $PRECISION dígitos"
   echo -e "$LINE"
 }
 
-# ==================================================
+# ============================================================
 # MENU PRINCIPAL
-# ==================================================
+# ============================================================
 main_menu(){
 while true; do
   header
-  echo -e "${G}(1)${Z} Matemática"
-  echo -e "${G}(2)${Z} Física & Simulações"
-  echo -e "${G}(3)${Z} Infinity Mode ∞ (Sistema)"
-  echo -e "${G}(4)${Z} Configurações"
-  echo -e "${G}(5)${Z} Manual"
+  echo "(1) Matemática Avançada"
+  echo "(2) Física Fundamental & Moderna"
+  echo "(3) Infinity Mode ∞ (Limites Computacionais)"
+  echo "(4) Universo & Cosmologia"
+  echo "(5) Tesla Mode ⚡"
+  echo "(6) Conspirações (Análise Científica)"
+  echo "(7) Modo Professor ∞"
+  echo "(8) Utilidades Científicas"
+  echo "(9) Configurações"
+  echo "(10) Manual Técnico"
   echo
-  echo -e "${R}(0)${Z} Sair"
+  echo "(0) Sair"
   read -p ">> " op
-
   case $op in
     1) math_menu ;;
     2) physics_menu ;;
     3) infinity_menu ;;
-    4) settings ;;
-    5) manual ;;
+    4) universe_menu ;;
+    5) tesla_menu ;;
+    6) conspiracy_menu ;;
+    7) professor_menu ;;
+    8) utils_menu ;;
+    9) settings ;;
+    10) manual ;;
     0) exit ;;
   esac
 done
 }
 
-# ==================================================
-# MATEMÁTICA (BÁSICO → EXTREMO)
-# ==================================================
-math_menu(){
+# ============================================================
+# UNIVERSO & COSMOLOGIA
+# ============================================================
+universe_menu(){
 while true; do
   header
-  echo -e "${C}MATEMÁTICA${Z}"
-  echo
-  echo "(1) Básica ( + - * / ^ )"
-  echo "(2) Científica (sin cos log sqrt)"
-  echo "(3) Equações & Avaliação"
-  echo "(4) Derivadas Numéricas"
-  echo "(5) Integrais Numéricas"
-  echo "(6) Estatística"
-  echo "(7) Séries & Limites"
+  echo "(1) Big Bang"
+  echo "(2) Energia Escura"
+  echo "(3) Matéria Escura"
+  echo "(4) Multiverso"
+  echo "(5) Limites da Cosmologia"
   echo
   echo "(0) Voltar"
   read -p ">> " op
 
   case $op in
     1)
-      read -p "Conta >> " e
-      safe_calc "$e"
-      ;;
+echo "O modelo do Big Bang descreve a evolução inicial do universo a partir de um estado extremamente quente e denso. Ele não descreve uma explosão em um ponto do espaço, mas sim a expansão do próprio espaço-tempo. As principais evidências observacionais incluem a radiação cósmica de fundo em micro-ondas (CMB), o desvio para o vermelho das galáxias proporcional à distância (Lei de Hubble-Lemaître) e as proporções observadas de elementos leves como hidrogênio, hélio e lítio. O modelo explica a evolução do universo desde frações de segundo após o início da expansão, mas não descreve a causa última ou condição inicial absoluta."
+;;
     2)
-      read -p "Função >> " e
-      safe_calc "$e"
-      ;;
+echo "Energia escura é o termo utilizado para descrever o fenômeno responsável pela aceleração observada da expansão do universo. Sua existência é inferida por observações de supernovas do tipo Ia, oscilações acústicas bariônicas e anisotropias da radiação cósmica de fundo. As interpretações atuais incluem a constante cosmológica associada ao vácuo quântico ou campos dinâmicos ainda não detectados. Não se trata de uma força convencional e sua natureza permanece desconhecida."
+;;
     3)
-      read -p "f(x) >> " f
-      read -p "x >> " x
-      safe_calc "${f//x/$x}"
-      ;;
+echo "Matéria escura é um tipo de matéria que não interage significativamente com a radiação eletromagnética, tornando-se invisível aos telescópios tradicionais. Sua presença é inferida por efeitos gravitacionais, como curvas de rotação galácticas planas, lentes gravitacionais e a formação de grandes estruturas cósmicas. Diversos candidatos teóricos existem, como WIMPs e axions, mas nenhuma detecção direta foi confirmada até o momento."
+;;
     4)
-      read -p "f(x) >> " f
-      read -p "x >> " x
-      safe_calc "((${f//x/($x+$DX)})-(${f//x/($x-$DX)}))/(2*$DX)"
-      ;;
+echo "O conceito de multiverso surge como consequência matemática de alguns modelos inflacionários e de certas interpretações da mecânica quântica. Ele propõe a existência de múltiplos universos com propriedades físicas possivelmente distintas. Atualmente, o multiverso não gera previsões observacionais testáveis, permanecendo no domínio teórico e filosófico."
+;;
     5)
-      read -p "f(x) >> " f
-      read -p "a >> " a
-      read -p "b >> " b
-      h=$(safe_calc "($b-$a)/$STEPS")
-      sum=0
-      for ((i=0;i<STEPS;i++)); do
-        x1=$(safe_calc "$a+$i*$h")
-        x2=$(safe_calc "$x1+$h")
-        f1=$(safe_calc "${f//x/$x1}")
-        f2=$(safe_calc "${f//x/$x2}")
-        sum=$(safe_calc "$sum+(($f1+$f2)/2)*$h")
-      done
-      echo "Integral ≈ $sum"
-      ;;
-    6)
-      read -p "Valores >> " v
-      awk '{
-        for(i=1;i<=NF;i++){a[i]=$i; s+=$i}
-        n=NF; m=s/n
-        for(i=1;i<=NF;i++)v+=(a[i]-m)^2
-        asort(a)
-        printf "Média: %.6f\nMediana: %.6f\nVariância: %.6f\nDesvio: %.6f\n",
-        m,a[int(n/2)],v/n,sqrt(v/n)
-      }' <<< "$v"
-      ;;
-    7)
-      read -p "Termo a_n (n) >> " f
-      read -p "n >> " n
-      sum=0
-      for ((i=1;i<=n;i++)); do
-        sum=$(safe_calc "$sum+(${f//n/$i})")
-      done
-      echo "Série ≈ $sum"
-      ;;
+echo "A cosmologia moderna enfrenta limites fundamentais em escalas extremas. Singularidades como o Big Bang e o interior de buracos negros indicam a quebra da relatividade geral. Uma teoria consistente e experimentalmente verificada de gravidade quântica ainda não existe. Além disso, horizontes cosmológicos limitam a quantidade de informação observável no universo."
+;;
     0) break ;;
   esac
   pause
 done
 }
 
-# ==================================================
-# FÍSICA
-# ==================================================
-physics_menu(){
+# ============================================================
+# TESLA MODE ⚡
+# ============================================================
+tesla_menu(){
 while true; do
   header
-  echo -e "${C}FÍSICA & SIMULAÇÕES${Z}"
-  echo
-  echo "(1) Movimento Uniforme"
-  echo "(2) MUV"
-  echo "(3) Queda Livre"
-  echo "(4) Energia"
-  echo "(5) Órbita Circular"
-  echo "(6) Velocidade de Escape"
+  echo "(1) Nikola Tesla (Contexto Histórico)"
+  echo "(2) Corrente Alternada"
+  echo "(3) Campos e Ressonância"
+  echo "(4) Energia Sem Fio"
+  echo "(5) Limitações das Ideias de Tesla"
   echo
   echo "(0) Voltar"
   read -p ">> " op
 
   case $op in
     1)
-      read -p "v >> " v
-      read -p "t >> " t
-      safe_calc "$v*$t"
-      ;;
+echo "Nikola Tesla foi um engenheiro e inventor com contribuições fundamentais para sistemas de corrente alternada, motores elétricos, radiofrequência e engenharia eletromagnética. Muitos conteúdos populares atribuem a ele frases e ideias místicas que não possuem base documental ou técnica."
+;;
     2)
-      read -p "v0 >> " v0
-      read -p "a >> " a
-      read -p "t >> " t
-      safe_calc "$v0*$t+($a*$t^2)/2"
-      ;;
+echo "A corrente alternada permite a transformação eficiente de tensão por meio de transformadores, reduzindo perdas por efeito Joule durante a transmissão de energia elétrica. Esse princípio tornou possível a construção de redes elétricas de larga escala, sendo a base da infraestrutura elétrica moderna."
+;;
     3)
-      read -p "h >> " h
-      g=9.80665
-      safe_calc "sqrt(2*$h/$g)"
-      ;;
+echo "Ressonância é um fenômeno físico no qual um sistema responde com maior amplitude quando excitado em sua frequência natural. Esse efeito é amplamente utilizado em engenharia, comunicações e sistemas mecânicos. A ressonância não gera energia; ela apenas maximiza a transferência de energia dentro de sistemas já energizados."
+;;
     4)
-      read -p "m >> " m
-      read -p "v >> " v
-      safe_calc "($m*$v^2)/2"
-      ;;
+echo "A transmissão de energia sem fio é fisicamente possível por acoplamento indutivo, capacitivo ou ondas eletromagnéticas. No entanto, perdas crescem rapidamente com a distância devido à dispersão e absorção. Por isso, não é viável para distribuição energética global em larga escala."
+;;
     5)
-      read -p "Raio (km) >> " r
-      mu=398600.4418
-      safe_calc "sqrt($mu/$r)"
-      ;;
-    6)
-      read -p "Raio (km) >> " r
-      mu=398600.4418
-      safe_calc "sqrt(2*$mu/$r)"
-      ;;
+echo "Algumas propostas de Tesla extrapolaram os limites da física conhecida e nunca foram experimentalmente validadas, como transmissão ilimitada de energia ou dispositivos de energia infinita. Essas ideias entram em conflito direto com a conservação de energia e as leis da termodinâmica."
+;;
     0) break ;;
   esac
   pause
 done
 }
 
-# ==================================================
-# INFINITY MODE — NO LIMITE DO BASH
-# ==================================================
-infinity_menu(){
+# ============================================================
+# CONSPIRAÇÕES (ANÁLISE CIENTÍFICA)
+# ============================================================
+conspiracy_menu(){
 while true; do
   header
-  echo -e "${C}INFINITY MODE ∞${Z}"
-  echo
-  echo "(1) Identidade & Kernel"
-  echo "(2) Processos Detalhados"
-  echo "(3) CPU / MEM / LOAD"
-  echo "(4) Disco (com inodes)"
-  echo "(5) Rede Completa"
-  echo "(6) Portas Abertas"
-  echo "(7) Sensores / Temperatura"
-  echo "(8) Snapshot TOTAL"
-  echo "(9) Monitor ao Vivo"
+  echo "(1) Psicologia das Conspirações"
+  echo "(2) Terra Plana"
+  echo "(3) Lua é Falsa?"
+  echo "(4) NASA Esconde Tudo?"
+  echo "(5) Como Identificar Pseudociência"
   echo
   echo "(0) Voltar"
   read -p ">> " op
 
   case $op in
-    1) whoami; uname -a; uptime ;;
-    2) ps aux --sort=-%cpu | head -30 ;;
-    3) lscpu; echo; free -h; uptime ;;
-    4) df -h; echo; df -i ;;
-    5) ip a; ip route; echo "IP Público: $(curl -s ifconfig.me)" ;;
-    6) ss -tulnp ;;
-    7) sensors 2>/dev/null || echo "Sensores indisponíveis" ;;
-    8)
-      uname -a
-      uptime
-      free -h
-      df -h
-      df -i
-      ip a
-      ss -tulnp
-      ;;
-    9)
-      trap "break" INT
-      while true; do
-        clear
-        date
-        uptime
-        free -h | head -2
-        ps aux --sort=-%cpu | head -5
-        sleep 2
-      done
-      trap - INT
-      ;;
+    1)
+echo "Teorias da conspiração emergem de vieses cognitivos como viés de confirmação, percepção ilusória de padrões e necessidade psicológica de controle. Ambientes de alta incerteza favorecem explicações simplificadas e narrativas de agentes ocultos."
+;;
+    2)
+echo "O modelo da Terra plana é refutado por múltiplas linhas independentes de evidência, incluindo gravitação newtoniana, navegação por satélite, observações astronômicas, imagens orbitais e trajetórias balísticas."
+;;
+    3)
+echo "As missões Apollo instalaram retrorefletores na superfície lunar, utilizados até hoje para medições de distância Terra-Lua por laser. Esses experimentos confirmam presença humana física no solo lunar de forma independente."
+;;
+    4)
+echo "A ciência espacial é descentralizada. Dados são produzidos e analisados por universidades, empresas privadas e agências de diversos países. Qualquer tentativa de ocultação global seria logisticamente inviável."
+;;
+    5)
+echo "Pseudociência evita hipóteses falsificáveis, rejeita revisão por pares e não produz previsões quantitativas testáveis. A ciência progride aceitando erro, crítica e correção contínua."
+;;
     0) break ;;
   esac
   pause
 done
 }
 
-# ==================================================
-# CONFIG
-# ==================================================
-settings(){
+# ============================================================
+# MODO PROFESSOR ∞
+# ============================================================
+professor_menu(){
+while true; do
   header
-  read -p "Nova precisão >> " PRECISION
+  echo "(1) Como a Ciência Funciona"
+  echo "(2) Modelos Científicos"
+  echo "(3) Caos e Complexidade"
+  echo "(4) Consciência"
+  echo "(5) Limites do Conhecimento"
+  echo
+  echo "(0) Voltar"
+  read -p ">> " op
+
+  case $op in
+    1)
+echo "A ciência opera por meio de hipóteses testáveis, experimentação controlada, análise estatística e revisão independente. Nenhuma teoria é definitiva; todas permanecem abertas à refutação."
+;;
+    2)
+echo "Modelos científicos são representações matemáticas ou conceituais da realidade. Eles funcionam dentro de domínios específicos e falham quando extrapolados além desses limites."
+;;
+    3)
+echo "Sistemas caóticos seguem leis determinísticas, mas exibem imprevisibilidade de longo prazo devido à extrema sensibilidade às condições iniciais. Isso não implica aleatoriedade."
+;;
+    4)
+echo "A consciência é estudada como um fenômeno emergente da atividade neural distribuída. Até o momento, não há evidência experimental de explicações sobrenaturais mensuráveis."
+;;
+    5)
+echo "Existem limites fundamentais impostos pela natureza, como a velocidade da luz, o princípio da incerteza e restrições energéticas. O progresso científico ocorre dentro desses limites."
+;;
+    0) break ;;
+  esac
+  pause
+done
 }
 
-# ==================================================
-# MANUAL
-# ==================================================
+# ============================================================
 manual(){
-  header
-  echo "Ferramenta matemática e de observação de sistema."
-  echo
-  echo "• Matemática básica até numérica avançada"
-  echo "• Física clássica e orbital"
-  echo "• Diagnóstico profundo do sistema"
-  echo "• Monitoramento em tempo real"
-  pause
+header
+cat <<EOF
+INFINITY ∞ TRANSCENDENCE+
+
+Ambiente científico e educacional em linha de comando.
+Integra matemática numérica, física clássica e moderna,
+engenharia conceitual, cosmologia observacional
+e análise crítica de pseudociência.
+
+Este sistema não fornece verdades absolutas.
+Ele fornece ferramentas para cálculo,
+exploração conceitual e desenvolvimento
+do pensamento científico crítico,
+respeitando os limites físicos e computacionais reais.
+EOF
+pause
 }
 
-# ==================================================
-# START
-# ==================================================
 main_menu
